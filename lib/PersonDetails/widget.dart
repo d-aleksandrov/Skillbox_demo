@@ -1,55 +1,56 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/LocationDetails/widget.dart';
+import 'package:skillboxdemoapp/locationdetails.dart';
+import 'package:skillboxdemoapp/persondetails/loader.dart';
 
-import 'loader.dart';
+class PersonDetailsPage extends StatefulWidget {
+  PersonDetailsPage({Key key, this.id}) : super(key: key);
 
-class PersonDetailsWidget extends StatefulWidget {
-  final int personId;
-
-  PersonDetailsWidget({Key key, this.personId}) : super(key: key);
+  final int id;
 
   @override
-  State<StatefulWidget> createState() => PersonDetailsState(this);
+  _State createState() => _State(id: id);
 }
 
-class PersonDetailsState extends State<PersonDetailsWidget> {
-  final PersonDetailsWidget widget;
-  PersonDetails _details;
+class _State extends State<PersonDetailsPage> {
+  _State({this.id}) : super();
 
-  PersonDetailsState(this.widget);
+  int id;
+  PersonDetails person;
 
   @override
   void initState() {
     super.initState();
-    loadAndSetState();
+    loadData();
   }
 
-  void loadAndSetState() async {
-    var details = await loadPerson(widget.personId);
+  void loadData() async {
+    var personInfo = await loadPerson(id);
     setState(() {
-      _details = details;
+      person = personInfo;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     var widget;
-    if (_details == null)
+    if (person == null)
       widget = Center(child: Text("Please, wait..."));
     else
       widget = SafeArea(
         child: Column(
           children: [
-            Image.network(
-              _details.avatar,
-              width: double.infinity,
+            GestureDetector(
+              child: Image.network(
+                person.avatar,
+                width: double.infinity,
+              ),
+              onTap: () => showLocationDetails(
+                context,
+                person.locationName,
+                person.locationUrl,
+              ),
             ),
-            Text(_details.name),
-            MaterialButton(
-              onPressed: () => showLocationSheet(context, _details.locationUrl),
-              child: Text(_details.locationName),
-            )
+            Text(person.name),
           ],
         ),
       );

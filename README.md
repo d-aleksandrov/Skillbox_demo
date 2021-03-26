@@ -1,4 +1,4 @@
-# flutter_app
+# skillboxdemoapp
 
 A new Flutter application.
 

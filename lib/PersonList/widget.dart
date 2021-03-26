@@ -1,67 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:skillboxdemoapp/persondetails/widget.dart';
+import 'package:skillboxdemoapp/personlist/loader.dart';
 
-import 'file:///C:/Users/guita/Documents/Repositories/flutter_app/lib/PersonDetails/widget.dart';
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
 
-import 'loader.dart';
-
-class PersonListWidget extends StatefulWidget {
-  PersonListWidget({Key key}) : super(key: key);
+  final String title;
 
   @override
-  _State createState() => _State();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _State extends State<PersonListWidget> {
-  List<Person> _persons = [];
+class _MyHomePageState extends State<MyHomePage> {
+  List<Person> persons = [];
 
-  void _incrementCounter() async {
-    var persons = await loadPersons();
+  void loadPressed() async {
+    var loadedPersons = await loadPersons();
     setState(() {
-      _persons = persons;
+      this.persons = loadedPersons;
     });
   }
 
-  void onPersonClick(BuildContext context, Person person) {
+  void navigateToDetails(int personId) {
     Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => PersonDetailsWidget(personId: person.id)),
+        context,
+        MaterialPageRoute(
+          builder: (context) => PersonDetailsPage(id: personId),
+        )
     );
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: SafeArea(
-          child: ListView.builder(
-            itemBuilder: (context, index) => Row(
-              children: [
-                Image.network(
-                  _persons[index].avatar,
-                  width: 100,
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.info,
-                    color: Colors.deepOrange,
-                    size: 50.0,
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: SafeArea(
+        child: ListView.builder(
+          itemCount: persons.length,
+          itemBuilder: (context, index) => Row(
+            children: [
+              Text(persons[index].id.toString()),
+              IconButton(
+                icon: Icon(Icons.info),
+                onPressed: () => navigateToDetails(persons[index].id),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Text(
+                  persons[index].name,
+                  style: TextStyle(
+                    fontSize: 25,
                   ),
-                  onPressed: () => onPersonClick(context, _persons[index]),
                 ),
-                Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text(
-                    "${_persons[index].id.toString()}    ${_persons[index].name}",
-                  ),
-                ),
-              ],
-            ),
-            itemCount: _persons.length,
+              ),
+            ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-        ), // This trailing comma makes auto-formatting nicer for build methods;
-      );
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: loadPressed,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ),
+    );
+  }
 }

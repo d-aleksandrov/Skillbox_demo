@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:skillboxdemoapp/personlist/widget.dart';
 
-import 'package:flutter_app/PersonList/widget.dart';
-
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -11,10 +12,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: PersonListWidget(),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
-

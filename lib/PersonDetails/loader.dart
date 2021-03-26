@@ -19,7 +19,7 @@ class PersonDetails {
 
 Future<PersonDetails> loadPerson(int id) async {
   var response =
-  await http.get("https://rickandmortyapi.com/api/character/$id");
+  await http.get(Uri.parse("https://rickandmortyapi.com/api/character/$id"));
   PersonDetails person;
   if (response.statusCode == 200) {
     var item = convert.jsonDecode(response.body);
@@ -35,7 +35,7 @@ Future<PersonDetails> loadPerson(int id) async {
     person.type = item["type"];
     person.originName = item["origin"]["name"];
     person.originUrl = item["origin"]["url"];
-    person.episodes = item["episode"];
+  //  person.episodes = item["episode"];
   }
   return person;
 }

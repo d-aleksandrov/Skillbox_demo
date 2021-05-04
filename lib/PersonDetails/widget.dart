@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:skillboxdemoapp/locationdetails.dart';
-import 'package:skillboxdemoapp/persondetails/loader.dart';
+
+import 'loader.dart';
 
 class PersonDetailsPage extends StatefulWidget {
   PersonDetailsPage({Key key, this.id}) : super(key: key);
@@ -44,11 +44,7 @@ class _State extends State<PersonDetailsPage> {
                 person.avatar,
                 width: double.infinity,
               ),
-              onTap: () => showLocationDetails(
-                context,
-                person.locationName,
-                person.locationUrl,
-              ),
+              onTap: () => {}
             ),
             Text(person.name),
           ],

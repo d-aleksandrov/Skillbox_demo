@@ -5,27 +5,29 @@ class Person{
   int id;
   String name;
   String status;
+  String url;
+  String image;
 }
 
 Future<List<Person>> loadPersons() async{
   var response = await http.get(Uri.parse("https://rickandmortyapi.com/api/character"));
-  List<Person> persons = [];
+
+  List<Person> results = [];
 
   if(response.statusCode == 200){
-    var jsonResponse = convert.jsonDecode(response.body);
-    List<dynamic> resultsList = jsonResponse["results"];
+    List<dynamic> resultsList = convert.jsonDecode(response.body)["results"];
 
     for(var result in resultsList){
       Person person = Person();
       person.id = result["id"];
       person.name = result["name"];
       person.status = result["status"];
+      person.url = result["url"];
+      person.image = result["image"];
 
-      persons.add(person);
+      results.add(person);
     }
-  } else {
-
   }
 
-  return persons;
+  return results;
 }

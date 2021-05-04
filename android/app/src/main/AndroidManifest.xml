@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.skillboxdemoapp">
+    package="com.example.skillboxdemo052021">
    <application
-        android:label="skillboxdemoapp"
+        android:label="skillboxdemo052021"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

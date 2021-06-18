@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.skillboxdemo052021">
+    package="com.example.flutter_first_app">
    <application
-        android:label="skillboxdemo052021"
+        android:label="flutter_first_app"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

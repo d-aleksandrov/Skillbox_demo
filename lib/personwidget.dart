@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/personloader.dart';
 
-import 'loader.dart';
 
 class PersonDetailsPage extends StatefulWidget {
-  PersonDetailsPage({Key key, this.id}) : super(key: key);
+  PersonDetailsPage({required this.id}) : super();
 
   final int id;
 
@@ -12,10 +12,10 @@ class PersonDetailsPage extends StatefulWidget {
 }
 
 class _State extends State<PersonDetailsPage> {
-  _State({this.id}) : super();
+  _State({required this.id}) : super();
 
   int id;
-  PersonDetails person;
+  PersonDetails? person = null ;
 
   @override
   void initState() {
@@ -33,6 +33,7 @@ class _State extends State<PersonDetailsPage> {
   @override
   Widget build(BuildContext context) {
     var widget;
+    final person = this.person;
     if (person == null)
       widget = Center(child: Text("Please, wait..."));
     else
@@ -44,7 +45,7 @@ class _State extends State<PersonDetailsPage> {
                 person.avatar,
                 width: double.infinity,
               ),
-              onTap: () => {}
+              onTap: () => {} ,
             ),
             Text(person.name),
           ],
